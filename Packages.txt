@@ -1,0 +1,12 @@
+Packages:
+
+Kivy
+kivy-deps.angle - https://github.com/Microsoft/angle
+kivy-deps.glew - http://glew.sourceforge.net/
+kivy-deps.gstreamer - https://gstreamer.freedesktop.org/
+kivy-deps.sdl2 - https://libsdl.org/
+
+
+======================
+
+kivymd - https://github.com/HeaTTheatR/KivyMD

@@ -1,0 +1,380 @@
+ScreenManager:
+    Instructions:
+    Home:
+    Start:
+    QuestionID:
+    Questions:
+    End:
+    Profile:
+    Scoreboard:
+
+<Instructions>:
+    name: 'instructions'
+    FloatLayout:
+        MDLabel:
+            text: "Welcome to Self tester"
+            font_style:"H3"
+            halign:'center'
+            pos_hint: {'center_x':0.5,'center_y':0.9}
+            theme_text_color: 'Primary'
+        MDLabel:
+            text: "Instructions"
+            pos_hint: {'center_x':0.2,'center_y':0.7}
+            halign:'center'
+            font_style:"H5"
+            theme_text_color: 'Secondary'
+
+        MDList:
+            pos_hint: {'center_x':0.7, 'center_y':0.5}
+            OneLineIconListItem:
+                text: "Login with your credentials"
+                theme_text_color: 'Hint'
+                IconLeftWidget:
+                    icon : 'numeric-1-box'
+            OneLineIconListItem:
+                text: "Select your desired questions"
+                theme_text_color: 'Hint'
+                IconLeftWidget:
+                    icon : 'numeric-2-box'
+            OneLineIconListItem:
+                text: "Test yourselves with it"
+                theme_text_color: 'Hint'
+                IconLeftWidget:
+                    icon : 'numeric-3-box'
+
+        MDFillRoundFlatIconButton:
+            text: "START"
+            icon: "flag-checkered"
+            pos_hint: {'center_x':0.45 , 'center_y': 0.2}
+            on_release:
+                root.manager.current="home"
+                root.manager.transition.direction="up"
+
+<Home>:
+    name:"home"
+    uname:uname
+    passw:passw
+    isvalid:isvalid
+    MDLabel:
+        text: "Login"
+        font_style: "H3"
+        pos_hint: {'center_x':0.5,'center_y':0.9}
+        halign:'center'
+        theme_text_color: 'Primary'
+    Label:
+        id:isvalid
+        color:[1,0,0,0]
+
+    MDTextField:
+        id: uname
+        helper_text: "Enter username"
+        helper_text_mode: "persistent"
+        pos_hint: {'center_x': 0.5, 'center_y':0.5}
+        size_hint: (0.4,0.1)
+        size_hint_y: None
+        icon_right: 'account-key'
+        icon_right_color: app.theme_cls.primary_color
+
+    MDTextField:
+        id:passw
+        helper_text: "Enter password"
+        helper_text_mode: "persistent"
+        password: True
+        pos_hint: {'center_x': 0.5, 'center_y':0.3}
+        size_hint: (0.4,0.1)
+        size_hint_y: None
+        icon_right: 'key'
+        icon_right_color: app.theme_cls.primary_color
+
+    MDFillRoundFlatIconButton:
+        text: "Login"
+        icon: "door"
+        pos_hint: {'center_x':0.4 , 'center_y': 0.1}
+        on_press:root.validate()
+        on_release:
+            root.manager.current="start" if isvalid.text == "1" else "home"
+            root.manager.transition.direction="left"
+
+    MDFillRoundFlatIconButton:
+        text: "Back"
+        icon: "skip-backward"
+        pos_hint: {'center_x':0.6 , 'center_y': 0.1}
+        on_release:
+            root.manager.current="instructions"
+            root.manager.transition.direction="right"
+
+
+<Start>:
+    name: "start"
+    Image:
+        source: "Images/logo.png"
+        pos_hint: {"center_x": 0.5, "center_y": 0.8}
+    MDFillRoundFlatIconButton:
+        text: "Play"
+        icon: "play"
+        pos_hint: {'center_x':0.5 , 'center_y': 0.5}
+        on_release:
+            root.manager.current="questionID"
+            root.manager.transition.direction="left"
+
+    MDFillRoundFlatIconButton:
+        text: "Scores"
+        icon: "scoreboard"
+        pos_hint: {'center_x':0.5 , 'center_y': 0.4}
+        on_release:
+            root.manager.current="score"
+            root.manager.transition.direction="left"
+
+    MDFillRoundFlatIconButton:
+        text: "Profile"
+        icon: "information"
+        pos_hint: {'center_x':0.5 , 'center_y': 0.3}
+        on_release:
+            root.manager.current="profile"
+            root.manager.transition.direction="left"
+
+    MDFillRoundFlatIconButton:
+        text: "Quit"
+        icon: "door-open"
+        pos_hint: {'center_x':0.5 , 'center_y': 0.2}
+        on_release: app.stop()
+
+
+
+
+<QuestionID>:
+    domain:domain
+    title:title
+    isvalid:isvalid
+    name:"questionID"
+    MDLabel:
+        pos_hint: {'center_x':0.5, 'center_y':0.8}
+        text:"Enter Domain and Title"
+        halign: "center"
+        font_style:"H5"
+        theme_text_color: 'Secondary'
+    MDTextField:
+        id:domain
+        helper_text: "Enter Domain"
+        helper_text_mode: "persistent"
+        pos_hint: {'center_x': 0.5, 'center_y':0.6}
+        size_hint: (0.4,0.1)
+        size_hint_y: None
+        icon_right: 'domain'
+        icon_right_color: app.theme_cls.primary_color
+    Label:
+        id:isvalid
+        color:[1,0,0,0]
+
+    MDTextField:
+        id:title
+        helper_text: "Enter Title"
+        helper_text_mode: "persistent"
+        pos_hint: {'center_x': 0.5, 'center_y':0.3}
+        size_hint: (0.4,0.1)
+        size_hint_y: None
+        icon_right: 'format-title'
+        icon_right_color: app.theme_cls.primary_color
+
+    MDFillRoundFlatIconButton:
+        text: "Start"
+        icon: "door"
+        pos_hint: {'center_x':0.4 , 'center_y': 0.1}
+        on_press:root.validate()
+        on_release: root.manager.current="questions" if isvalid.text == "1" else "questionID"
+
+    MDFillRoundFlatIconButton:
+        text: "Back"
+        icon: "skip-backward"
+        pos_hint: {'center_x':0.6 , 'center_y': 0.1}
+        on_release:
+            root.manager.current="start"
+            root.manager.transition.direction="right"
+
+<Questions>:
+    name:"questions"
+    question_text:question_text
+    isstart:isstart
+    ispressed:ispressed
+    opt1:opt1
+    opt2:opt2
+    opt3:opt3
+    opt4:opt4
+
+    Label:
+        id:ispressed
+
+
+    MDLabel:
+        text: "Questions"
+        font_style: "H3"
+        pos_hint: {'center_x':0.5,'center_y':0.9}
+        halign:'center'
+        theme_text_color: 'Primary'
+
+
+    MDCard:
+        pos_hint: {'center_x': 0.5, 'center_y':0.7}
+        size_hint: (0.8,0.2)
+        padding: "15dp"
+        MDLabel:
+            id:question_text
+            text:"<Question appears here. Select the respective options and select next button to submit>\n <On finishing you can view the score and right answers by selecting the list of answers to rectify your mistake> \n Now press the empty button in left bottom to start"
+
+
+
+    MDCard:
+        pos_hint: {'center_x': 0.3, 'center_y':0.48}
+        size_hint: (0.35,0.1)
+        padding: "10dp"
+        MDLabel:
+            id:opt1
+            text:opt1.text
+        MDCheckbox:
+            id:c1
+            group:"group"
+            size: "48dp", "48dp"
+            pos_hint: {'center_x':0.1, 'center_y':0.5}
+            on_press: ispressed.text = "1"
+
+
+    MDCard:
+        pos_hint: {'center_x': 0.3, 'center_y':0.28}
+        size_hint: (0.35,0.1)
+        padding: "10dp"
+        MDLabel:
+            id:opt2
+            text:opt2.text
+        MDCheckbox:
+            id:c2
+            group:"group"
+            size: "48dp", "48dp"
+            pos_hint: {'center_x':0.1, 'center_y':0.5}
+            on_press: ispressed.text = "2"
+
+    MDCard:
+        pos_hint: {'center_x': 0.7, 'center_y':0.48}
+        size_hint: (0.35,0.1)
+        padding: "15dp"
+        MDLabel:
+            id:opt3
+            text:opt3.text
+        MDCheckbox:
+            id: c3
+            group:"group"
+            size: "48dp", "48dp"
+            pos_hint: {'center_x':0.1, 'center_y':0.5}
+            on_press: ispressed.text = "3"
+
+
+    MDCard:
+        pos_hint: {'center_x': 0.7, 'center_y':0.28}
+        size_hint: (0.35,0.1)
+        padding: "15dp"
+        MDLabel:
+            id:opt4
+            text:opt4.text
+        MDCheckbox:
+            id:c4
+            group:"group"
+            size: "48dp", "48dp"
+            pos_hint: {'center_x':0.1, 'center_y':0.5}
+            on_press: ispressed.text = "4"
+
+
+    MDFillRoundFlatIconButton:
+        id: isstart
+        icon: "flag-checkered"
+        pos_hint: {'center_x':0.2, 'center_y':0.1}
+        text: isstart.text
+        on_press:
+            root.testfunc()
+            root.startGame()
+        on_release: root.manager.current = "end" if isstart.text == "Finish" else "questions"
+
+    MDFillRoundFlatIconButton:
+        pos_hint: {'center_x':0.5, 'center_y':0.1}
+        text: "Abort"
+        icon: "cancel"
+        on_press: root.abort_fun()
+        on_release: root.manager.current = "questionID"
+    MDFillRoundFlatIconButton:
+        pos_hint: {'center_x':0.8, 'center_y':0.1}
+        text: "Done"
+        icon: "page-next"
+        on_press: root.donefunc()
+        on_release: root.manager.current = "end"
+
+<End>:
+    name:"end"
+    MDProgressBar:
+        id: progress
+        pos_hint:{'center_x':0.5, 'center_y':0.9}
+        size_hint:(0.5,1)
+    MDLabel:
+        pos_hint:{'center_x':0.8, 'center_y':0.8}
+        id: scorepercent
+        font_style: "H4"
+
+    MDFillRoundFlatIconButton:
+        pos_hint: {'center_x':0.5, 'center_y':0.1}
+        text: "Submit"
+        icon: "page-next"
+        on_press: root.clearall()
+        on_release:
+            root.manager.current = "instructions"
+            root.manager.transition.direction="down"
+
+    ScrollView:
+        size_hint: (1,0.5)
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+        MDList:
+            id: mylist
+
+<Profile>:
+    name:"profile"
+    MDCard:
+        pos_hint: {'center_x': 0.5, 'center_y':0.7}
+        size_hint: (0.8,0.2)
+        padding: "15dp"
+        MDLabel:
+            id:username
+    MDCard:
+        pos_hint: {'center_x': 0.5, 'center_y':0.3}
+        size_hint: (0.8,0.2)
+        padding: "15dp"
+        MDLabel:
+            id:password
+
+    MDLabel:
+        pos_hint: {'center_x': 0.9, 'center_y':0.85}
+        text: "Username: "
+
+    MDLabel:
+        pos_hint: {'center_x': 0.9, 'center_y':0.45}
+        text: "Password: "
+
+    MDFillRoundFlatIconButton:
+        text: "Back"
+        icon: "skip-backward"
+        pos_hint: {'center_x':0.8 , 'center_y': 0.1}
+        on_release:
+            root.manager.current="start"
+            root.manager.transition.direction="right"
+
+<Scoreboard>:
+    name: "score"
+    ScrollView:
+        size_hint: (1,0.8)
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+        MDList:
+            id: mylist
+
+    MDFillRoundFlatIconButton:
+        text: "Back"
+        icon: "skip-backward"
+        pos_hint: {'center_x':0.8 , 'center_y': 0.1}
+        on_press: root.clearall()
+        on_release:
+            root.manager.current = "start"
+            root.manager.transition.direction="right"

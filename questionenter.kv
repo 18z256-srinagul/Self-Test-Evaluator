@@ -1,0 +1,362 @@
+Arrival:
+    FirstScreen:
+    Login:
+    Signup:
+    Instructions:
+    Questions:
+    DomainScreen:
+    Error:
+    End:
+
+
+<FirstScreen>:
+    name:"firstScreen"
+    FloatLayout:
+        Label:
+            text: "Flash Card"
+            font_size:"80sp"
+            font_name:"Comic"
+            size_hint: 0.8,0.2
+            pos_hint: {"x":0.1,"y":0.8}
+        Label:
+            text: "Test yourself"
+            font_size:"30sp"
+            size_hint:0.4,0.2
+            font_name:"Comic"
+            pos_hint: {"x":0.6,"y":0.65}
+        Label:
+            text: "[i] Enter your flash [/i]"
+            markup:True
+            font_size:"25sp"
+            size_hint:0.4,0.2
+            font_name:"Arial"
+            pos_hint: {"x":0.3,"y":0.3}
+        Button:
+            text: "Enter"
+            size_hint:0.4,0.1
+            pos_hint: {"x":0.5,"y":0.1}
+            background_color:[0,0,0.7,1]
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction="up"
+
+<Login>:
+    name:"login"
+    uname:uname
+    upass:upass
+    isUser:isuser
+    FloatLayout:
+        Label:
+            text:"Identify yourselves!"
+            size_hint:0.15,0.1
+            pos_hint:{"x":0.4,"y":0.8}
+            font_size:"30sp"
+        Label:
+            text:"Username: "
+            size_hint:0.1,0.1
+            pos_hint:{"x":0.2,"y":0.6}
+            font_size:"20sp"
+        TextInput:
+            id:uname
+            hint_text:"Enter username"
+            multiline:False
+            size_hint:0.4,0.07
+            pos_hint:{"x":0.4,"y":0.61}
+            font_size:"20sp"
+        Label:
+            id:isuser
+            color:[1,0,0,0]
+            size_hint:0.1,0.1
+            pos_hint:{"x":0.8,"y":0.3}
+        Label:
+            text:"Password: "
+            size_hint:0.1,0.1
+            pos_hint:{"x":0.2,"y":0.4}
+            font_size:"20sp"
+        TextInput:
+            id:upass
+            hint_text:"Enter password"
+            multiline:False
+            password: True
+            password_mask:'$'
+            size_hint:0.4,0.07
+            pos_hint:{"x":0.4,"y":0.41}
+            font_size:"20sp"
+        Button:
+            text:"I'm new user"
+            size_hint:0.3,0.1
+            pos_hint:{"x":0.1,"y":0.15}
+            on_release:
+                app.root.current = "signup"
+                root.manager.transition.direction = "right"
+        Button:
+            text:"Login"
+            size_hint:0.3,0.1
+            pos_hint:{"x":0.6,"y":0.15}
+            background_color:[0,1,0,1] if isuser.text == "1" else [1,0,0,1]
+            on_press:root.Validate()
+            on_release:
+                app.root.current = "instructions" if isuser.text == "1" else "login"
+                root.manager.transition.direction = "left"
+
+<Signup>:
+    name:"signup"
+    uname:uname
+    upass:upass
+    FloatLayout:
+        Label:
+            text:"Welcome new user! \nEnter your credentials"
+            size_hint:0.15,0.1
+            pos_hint:{"x":0.4,"y":0.8}
+            font_size:"30sp"
+        Label:
+            text:"Username: "
+            size_hint:0.1,0.1
+            pos_hint:{"x":0.2,"y":0.6}
+            font_size:"20sp"
+        TextInput:
+            id:uname
+            hint_text:"Enter username"
+            multiline:False
+            size_hint:0.4,0.07
+            pos_hint:{"x":0.4,"y":0.61}
+            font_size:"20sp"
+        Label:
+            text:"Password: "
+            size_hint:0.1,0.1
+            pos_hint:{"x":0.2,"y":0.4}
+            font_size:"20sp"
+        TextInput:
+            id:upass
+            hint_text:"Enter password"
+            password: True
+            password_mask:'+'
+            multiline:False
+            size_hint:0.4,0.07
+            pos_hint:{"x":0.4,"y":0.41}
+            font_size:"20sp"
+        Button:
+            text:"Signup"
+            size_hint:0.3,0.1
+            pos_hint:{"x":0.1,"y":0.15}
+            on_press:root.Insert()
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction = "left"
+        Button:
+            text: "Back"
+            size_hint:0.3,0.1
+            pos_hint: {"x":0.6,"y":0.15}
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction="left"
+
+<Instructions>:
+    name:"instructions"
+    FloatLayout:
+        Label:
+            text:"INSTRUCTIONS"
+            size_hint:0.5,0.2
+            pos_hint:{"x":0.25,"y":0.8}
+            font_size:"30sp"
+
+        Label:
+            text:"1. Once you press 'Start' button below, you'll move to next section"
+            size_hint:0.3,0.1
+            font_size:"18sp"
+            pos_hint:{"x":0.2,"y":0.7}
+
+        Label:
+            text:"2. Give domain and title for your questions and select 'Next'"
+            size_hint:0.25,0.1
+            font_size:"18sp"
+            pos_hint:{"x":0.21,"y":0.6}
+
+        Label:
+            text:"3. In the next section start entering the questions, answers, reasons in relevant box"
+            size_hint:0.2,0.1
+            font_size:"18sp"
+            pos_hint:{"x":0.34,"y":0.5}
+
+        Label:
+            text:"4. To move to next question, select 'Next' button and continue"
+            size_hint:0.21,0.1
+            font_size:"18sp"
+            pos_hint:{"x":0.23,"y":0.4}
+
+        Label:
+            text:"5. Once questions are done, select 'Done' button"
+            size_hint:0.11,0.1
+            font_size:"18sp"
+            pos_hint:{"x":0.21,"y":0.3}
+
+        Button:
+            text:"Start"
+            size_hint:0.4,0.1
+            pos_hint:{"x":0.4,"y":0.1}
+            on_release:
+                app.root.current = "domainscreen"
+                root.manager.transition.direction = "up"
+
+<DomainScreen>:
+    name:"domainscreen"
+    domain:domain
+    title:title
+    result:result
+    Label:
+        text:"Choose your domain"
+        size_hint:0.1,0.1
+        font_size:"30sp"
+        pos_hint:{"x":0.45,"y":0.8}
+    Label:
+        text:"Domain"
+        size_hint:0.1,0.1
+        font_size:"18sp"
+        pos_hint:{"x":0.1,"y":0.65}
+    TextInput:
+        id:domain
+        multiline:False
+        hint_text:"Enter domain"
+        size_hint:0.4,0.07
+        pos_hint:{"x":0.1,"y":0.57}
+        font_size:"20sp"
+    Label:
+        text:"Title"
+        size_hint:0.1,0.1
+        font_size:"18sp"
+        pos_hint:{"x":0.08,"y":0.35}
+
+    Label:
+        id:result
+        color:[1,0,0,0]
+
+    TextInput:
+        id:title
+        multiline:False
+        hint_text:"Enter title"
+        size_hint:0.4,0.07
+        pos_hint:{"x":0.1,"y":0.27}
+        font_size:"20sp"
+
+    Button:
+        text: "Next"
+        size_hint:0.4,0.1
+        pos_hint: {"x":0.5,"y":0.1}
+        background_color:[0,0.7,0,1]
+        on_press: root.EnterDomain()
+        on_release:
+            app.root.current = "question" if result.text=="1" else "domainscreen"
+            root.manager.transition.direction="left"
+
+<Questions>:
+    name:"question"
+    ques:bques
+    ans:bans
+    desc:bdesc
+    cont:bcont
+
+    FloatLayout:
+        Label:
+            text:"Question"
+            size_hint:0.1,0.1
+            font_size:"20sp"
+            pos_hint:{"x":0.1,"y":0.7}
+
+        TextInput:
+            id:bques
+            hint_text:"Enter question"
+            multiline:True
+            size_hint:0.8,0.1
+            pos_hint:{"x":0.1,"y":0.6}
+            font_size:"28sp"
+        Label:
+            text:"Answer"
+            size_hint:0.1,0.1
+            font_size:"20sp"
+            pos_hint:{"x":0.1,"y":0.5}
+
+        TextInput:
+            id:bans
+            hint_text:"Enter answer"
+            multiline:True
+            size_hint:0.8,0.1
+            pos_hint:{"x":0.1,"y":0.4}
+            font_size:"28sp"
+
+        Label:
+            text:"Description"
+            size_hint:0.1,0.1
+            font_size:"20sp"
+            pos_hint:{"x":0.1,"y":0.3}
+
+        Label:
+            id:bcont
+            color:[1,0,0,0]
+
+        TextInput:
+            id:bdesc
+            hint_text:"Enter description/examples"
+            multiline:True
+            size_hint:0.8,0.1
+            pos_hint:{"x":0.1,"y":0.2}
+            font_size:"28sp"
+
+        Button:
+            text: "Add question"
+            size_hint:0.2,0.1
+            pos_hint: {"x":0.1,"y":0.05}
+            background_color:[0.8,0.8,0,1]
+            on_press:root.validate()
+            on_release:
+                app.root.current = "question" if bcont.text=="1" else "error"
+                root.manager.transition.direction = "left" if bcont.text=="1" else "down"
+
+        Button:
+            text: "Finish"
+            size_hint:0.2,0.1
+            pos_hint: {"x":0.7,"y":0.05}
+            background_color:[0,0.7,0,1]
+            on_release:
+                app.root.current="end"
+                root.manager.transition.direction="down"
+
+<Error>:
+    name:"error"
+    FloatLayout:
+        Label:
+            text:"Repetation of question/Invalid"
+        Button:
+            text: "Start again"
+            size_hint:0.2,0.1
+            pos_hint: {"x":0.7,"y":0.05}
+            background_color:[0,0.7,0,1]
+            on_release:
+                app.root.current="instructions"
+                root.manager.transition.direction="down"
+
+<End>:
+    name:"end"
+    FloatLayout:
+        Label:
+            text:"Thank you!"
+            size_hint:0.5,0.2
+            pos_hint:{"x":0.25,"y":0.8}
+            font_size:"30sp"
+
+        Label:
+            text:"You can start testing yourself now!"
+            size_hint:0.1,0.1
+            font_size:"20sp"
+            pos_hint:{"x":0.45,"y":0.5}
+
+        Label:
+            text:"Move on to another application to start your test"
+            size_hint:0.1,0.1
+            font_size:"20sp"
+            pos_hint:{"x":0.45,"y":0.3}
+        Button:
+            text: "Exit"
+            size_hint:0.2,0.1
+            pos_hint: {"x":0.7,"y":0.05}
+            background_color:[0.8,0,0,1]
+            on_press: app.stop()
